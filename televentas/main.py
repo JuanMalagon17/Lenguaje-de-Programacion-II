@@ -1,11 +1,13 @@
 from models.producto import Producto
-from models.cliente import Cliente
-
+from services.servicio_inventario import ServicioInventario
 
 def main():
-    cliente = Cliente("Juan", "juan@mail.com")
-    print(cliente.solicitar_catalogo())
+    inventario = ServicioInventario()
 
+    producto = Producto("001", "Laptop", 3000, 10)
+    inventario.agregar_producto(producto)
+
+    print(inventario.obtener_producto("001"))
 
 if __name__ == "__main__":
     main()
