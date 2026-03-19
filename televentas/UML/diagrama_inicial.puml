@@ -1,0 +1,65 @@
+@startuml
+
+' ==========
+' INTERFACE
+' ==========
+interface InventarioInterface {
+    +obtener_producto(codigo: str)
+    +actualizar_stock(codigo: str, cantidad: int)
+}
+
+class ServicioInventario {
+    +obtener_producto(codigo: str)
+    +actualizar_stock(codigo: str, cantidad:int)
+
+}
+
+InventarioInterface <|.. ServicioInventario
+
+' ==========
+' ENTIDADES
+' ==========
+class Producto {
+    -codigo: str
+    -descripcion: str
+    -precio: float
+}
+
+class Cliente {
+    -nombre: str
+    -correo: str
+}
+
+class Catalogo {
+    +consultar_producto(codigo: str)
+}
+
+' =====
+' PAGO
+' =====
+abstract class Pago {
+    +procesar_pago(monto: float)
+}
+
+class PagoTarjeta
+
+Pago <|-- PagoTarjeta
+
+' ======
+' ORDEN
+' =====
+class OrdenCompra {
+    +agregar_producto(producto, cantidad)
+    +confirmar()
+}
+
+' ===================
+' RELACIONES BASICAS
+' ===================
+Catalogo --> InventarioInterface
+
+OrdenCompra --> Cliente
+OrdenCompra --> Pago
+OrdenCompra --> Producto
+
+@enduml
