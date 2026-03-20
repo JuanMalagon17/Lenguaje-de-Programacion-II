@@ -24,39 +24,14 @@ Este sistema permite:
 
 ---
 
-## Estructura del proyecto
-
-televentas/
-│
-├── main.py
-│
-├── models/
-│ ├── producto.py
-│ ├── cliente.py
-│ ├── orden.py
-│ ├── queja.py
-│
-├── services/
-│ ├── inventario_interface.py
-│ ├── servicio_inventario.py
-│ ├── catalogo.py
-│ ├── logistica.py
-│
-├── pagos/
-│ ├── pago.py
-│ ├── pago_tarjeta.py
-│
-└── utils/
-└── transportadora.py
-
----
-
 ###  Programación Orientada a Objetos
-- Clases
-- Objetos
-- Encapsulamiento
-- Herencia
-- Polimorfismo
+
+- Clase: Estructura que define objetos (ej: Producto).
+- Objeto: Instancia de una clase.
+- Encapsulamiento: Organización de atributos y métodos.
+- Abstracción: Uso de clases abstractas como Pago.
+- Herencia: PagoTarjeta hereda de Pago.
+- Polimorfismo: Uso de diferentes tipos de pago mediante la misma interfaz.
 
 ###  Principios SOLID
 
