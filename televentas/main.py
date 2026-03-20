@@ -1,15 +1,19 @@
-from services.catalogo import Catalogo
-from services.servicio_inventario import ServicioInventario
 from models.producto import Producto
+from models.cliente import Cliente
+from models.orden import OrdenCompra
+from pagos.pago_tarjeta import PagoTarjeta
 
 def main():
-    inventario = ServicioInventario()
+    cliente = Cliente("Juan", "juan@mail.com")
+    pago = PagoTarjeta()
+
     producto = Producto("001", "Laptop", 3000, 10)
 
-    inventario.agregar_producto(producto)
+    orden = OrdenCompra(cliente, pago)
+    orden.agregar_producto(producto, 2)
 
-    catalogo = Catalogo(inventario)
-    print(catalogo.consultar_producto("001"))
+    orden.confirmar()
 
 if __name__ == "__main__":
     main()
+    
