@@ -1,7 +1,10 @@
 from datetime import date
 from models.cuadro import Cuadro
+from models.museo import Museo
 
 def main():
+    museo = Museo()
+
     cuadro = Cuadro(
         "Mona Lisa",
         "Da Vinci",
@@ -13,7 +16,9 @@ def main():
         "Óleo"
     )
 
-    print(cuadro.mostrar_detalle())
+    museo.agregar_obra(cuadro)
+
+    print("Valor total:", museo.valor_total())
 
 
 if __name__ == "__main__":
