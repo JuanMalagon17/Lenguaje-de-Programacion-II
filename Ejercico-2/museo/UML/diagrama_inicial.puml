@@ -1,0 +1,66 @@
+@startuml
+
+' ===== CLASE ABSTRACTA =====
+abstract class Obra {
+    - titulo
+    - autor
+    - periodo
+    - valor
+    - fecha_creacion
+    - fecha_ingreso
+    + mostrar_detalle()
+}
+
+' ===== HERENCIA =====
+class Cuadro {
+    - estilo
+    - tecnica
+}
+
+class Escultura {
+    - estilo
+    - material
+}
+
+class OtroObjeto {
+}
+
+Obra <|-- Cuadro
+Obra <|-- Escultura
+Obra <|-- OtroObjeto
+
+' ===== RESTAURACION =====
+class Restauracion {
+    - tipo
+    - fecha_inicio
+    - fecha_fin
+}
+
+Obra "1" --> "*" Restauracion
+
+' ===== MUSEO =====
+class Museo {
+    - obras
+    + valor_total()
+}
+
+Museo "1" --> "*" Obra
+
+' ===== USUARIOS =====
+abstract class Usuario {
+    - nombre
+    - password
+    + rol()
+}
+
+class Director
+class Restaurador
+class EncargadoCatalogo
+class Visitante
+
+Usuario <|-- Director
+Usuario <|-- Restaurador
+Usuario <|-- EncargadoCatalogo
+Usuario <|-- Visitante
+
+@enduml
