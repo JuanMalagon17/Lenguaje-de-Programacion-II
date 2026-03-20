@@ -1,0 +1,107 @@
+@startuml
+
+' =========================
+' INTERFACE
+' =========================
+interface InventarioInterface {
+    +obtener_producto(codigo: str)
+    +actualizar_stock(codigo: str, cantidad: int)
+}
+
+' =========================
+' IMPLEMENTACION INVENTARIO
+' =========================
+class ServicioInventario {
+    -productos: dict
+    +agregar_producto(producto)
+    +obtener_producto(codigo: str)
+    +actualizar_stock(codigo: str, cantidad: int)
+}
+
+InventarioInterface <|.. ServicioInventario
+
+' =========================
+' ENTIDADES
+' =========================
+class Producto {
+    -codigo: str
+    -descripcion: str
+    -precio: float
+    -cantidad: int
+}
+
+class Cliente {
+    -nombre: str
+    -correo: str
+    +solicitar_catalogo()
+}
+
+class Catalogo {
+    -inventario: InventarioInterface
+    +consultar_producto(codigo: str)
+}
+
+' =========================
+' PAGO (ABSTRACCION)
+' =========================
+abstract class Pago {
+    +procesar_pago(monto: float)
+}
+
+class PagoTarjeta {
+    +procesar_pago(monto: float)
+}
+
+Pago <|-- PagoTarjeta
+
+' =========================
+' ORDEN
+' =========================
+class OrdenCompra {
+    -cliente: Cliente
+    -pago: Pago
+    -productos: List<Producto>
+    -confirmada: bool
+    +agregar_producto(producto, cantidad)
+    +calcular_total()
+    +confirmar()
+    +cancelar()
+}
+
+' =========================
+' QUEJAS
+' =========================
+class Queja {
+    -cliente: Cliente
+    -descripcion: str
+    +enviar()
+}
+
+' =========================
+' LOGISTICA
+' =========================
+class Transportadora {
+    -nombre: str
+    +enviar()
+}
+
+class LogisticaEnvio {
+    -transportadoras: List<Transportadora>
+    +seleccionar_transportadora()
+    +enviar()
+}
+
+' =========================
+' RELACIONES
+' =========================
+Catalogo --> InventarioInterface
+
+OrdenCompra --> Cliente
+OrdenCompra --> Pago
+OrdenCompra --> "1..*" Producto
+
+Queja --> Cliente
+
+LogisticaEnvio --> "1..*" Transportadora
+
+@enduml
