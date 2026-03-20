@@ -1,10 +1,9 @@
 from datetime import date
 from models.cuadro import Cuadro
-from models.museo import Museo
+from models.restauracion import Restauracion
+
 
 def main():
-    museo = Museo()
-
     cuadro = Cuadro(
         "Mona Lisa",
         "Da Vinci",
@@ -16,10 +15,10 @@ def main():
         "Óleo"
     )
 
-    museo.agregar_obra(cuadro)
+    restauracion = Restauracion("Limpieza")
+    cuadro.agregar_restauracion(restauracion)
 
-    print("Valor total:", museo.valor_total())
-
+    print("Restauraciones:", len(cuadro.restauraciones))
 
 if __name__ == "__main__":
     main()
