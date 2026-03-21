@@ -1,0 +1,116 @@
+@startuml
+
+' ===== INTERFACES =====
+interface Autenticable {
+    + autenticar(password)
+}
+
+' ===== CLASE ABSTRACTA OBRA =====
+abstract class Obra {
+    - titulo
+    - autor
+    - periodo
+    - valor
+    - fecha_creacion
+    - fecha_ingreso
+    - en_restauracion
+    - restauraciones
+    + mostrar_detalle()
+    + agregar_restauracion()
+    + necesita_restauracion()
+}
+
+' ===== SUBCLASES =====
+class Cuadro {
+    - estilo
+    - tecnica
+    + mostrar_detalle()
+}
+
+class Escultura {
+    - estilo
+    - material
+    + mostrar_detalle()
+}
+
+class OtroObjeto {
+    + mostrar_detalle()
+}
+
+Obra <|-- Cuadro
+Obra <|-- Escultura
+Obra <|-- OtroObjeto
+
+' ===== RESTAURACION =====
+class Restauracion {
+    - tipo
+    - fecha_inicio
+    - fecha_fin
+    + finalizar()
+}
+
+Obra "1" --> "*" Restauracion
+
+' ===== MUSEO =====
+class Museo {
+    - obras
+    - museos_colaboradores
+    + agregar_obra()
+    + valor_total()
+}
+
+Museo "1" --> "*" Obra
+
+' ===== USUARIOS =====
+abstract class Usuario {
+    - nombre
+    - password
+    + rol()
+}
+
+Usuario ..|> Autenticable
+
+class Director {
+    + consultar_valor_total()
+}
+
+class Restaurador {
+    + ver_restauraciones()
+}
+
+class EncargadoCatalogo
+
+class Visitante {
+    + ver_obras()
+}
+
+Usuario <|-- Director
+Usuario <|-- Restaurador
+Usuario <|-- EncargadoCatalogo
+Usuario <|-- Visitante
+
+' ===== SERVICIOS =====
+class AutenticacionService {
+    + autenticar(usuario, password)
+}
+
+class GestorRestauracion {
+    + iniciar_restauracion()
+    + finalizar_restauracion()
+    + verificar_restauraciones()
+}
+
+class GestorCesion {
+    + ceder_obra()
+}
+
+' ===== RELACIONES SERVICIOS =====
+GestorRestauracion --> Obra
+GestorRestauracion --> Restauracion
+
+GestorCesion --> Obra
+GestorCesion --> Museo
+
+AutenticacionService --> Usuario
+
+@enduml
